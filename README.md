@@ -8,7 +8,7 @@ Program to split a clipboard selection (triggered via keyboard shortcuts). Linux
 
 ## Usage
 
-1. Compile and run.
+1. Compile and run **with** elevated permissions.
 2. Select a text anywhere by **using** Ctrl + C to copy.
 3. Ctrl + V to paste. First paste will be normal. Subsequent pastes will do the magic.
 4. Send a SIGINT to this program to stop.
