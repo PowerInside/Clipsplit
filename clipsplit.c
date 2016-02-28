@@ -94,6 +94,7 @@ int main()
 	unsigned int inc = BUFSIZE;
 	char *pasta = malloc(inc);
 	int link[2] = { 0 };
+    puts("\nRunning..\n");
 	while (1) {
 		n = read(fd, buf, sizeof(buf));
 		for (i = 0; i < n; i++) {
@@ -137,7 +138,6 @@ int main()
 					    realloc(pasta,
 						    inc - BUFSIZE + nbytes + 1);
 					pasta[inc - BUFSIZE + nbytes] = '\0';
-					printf("\nFINAL STRING: '%s'\n", pasta);
 
 					close(link[0]);
 					token = strtok(pasta, seperator);
@@ -177,11 +177,11 @@ int main()
 					token = strtok(NULL, seperator);
 				} else {
 					if (pipe(link) == -1)
-						perror("\npipe error");
+						perror("\npipe error\n");
 					pid = fork();
 					switch (pid) {
 					case -1:
-						printf("fork error");
+						printf("\nfork error\n");
 						break;
 					case 0:
 						dup2(link[0], STDIN_FILENO);
