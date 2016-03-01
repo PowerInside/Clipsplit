@@ -1,16 +1,16 @@
-#include<stdio.h>
-#include<unistd.h>
-#include<stdlib.h>
-#include<termios.h>
-#include<sys/stat.h>
-#include<signal.h>
-#include<fcntl.h>
-#include<linux/kd.h>
-#include<stdbool.h>
-#include<string.h>
-#include<sys/types.h>
-#include<sys/wait.h>
-#include<sys/ioctl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <termios.h>
+#include <sys/stat.h>
+#include <signal.h>
+#include <fcntl.h>
+#include <linux/kd.h>
+#include <unistd.h>
+#include <stdbool.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/ioctl.h>
 
 #define CTRL_press 0x1d
 #define CTRL_release 0x9d
@@ -23,6 +23,8 @@
 
 #define seperator " "
 #define BUFSIZE 64
+
+#include "savesplit.h"
 
 int fd;
 int oldkbmode;
@@ -92,7 +94,9 @@ int main()
 	pid_t pid;
 	char *token;
 	unsigned int inc = BUFSIZE;
-	char *pasta = malloc(inc);
+	char *pasta; 
+        pasta = malloc(inc);
+    
 	int link[2] = { 0 };
     puts("\nRunning..\n");
 	while (1) {
@@ -119,26 +123,7 @@ int main()
 					perror("execl");
 				} else {
 					close(link[1]);
-
-					ssize_t nbytes;
-					unsigned int n = 0;
-
-					for (;;) {
-						nbytes =
-						    read(link[0], pasta + n,
-							 BUFSIZE);
-						if (nbytes != BUFSIZE)
-							break;
-
-						n = inc;
-						inc += BUFSIZE;
-						pasta = realloc(pasta, inc);
-					}
-					pasta =
-					    realloc(pasta,
-						    inc - BUFSIZE + nbytes + 1);
-					pasta[inc - BUFSIZE + nbytes] = '\0';
-
+                    buffering(link[0], &pasta, BUFSIZE);
 					close(link[0]);
 					token = strtok(pasta, seperator);
 					int status;
