@@ -69,7 +69,7 @@ int main()
     signal(SIGTSTP, die);
     signal(SIGTTIN, die);
     signal(SIGTTOU, die);
-    unsigned char buf[16];
+    unsigned char buf[2];
 
     struct termios new;
 
