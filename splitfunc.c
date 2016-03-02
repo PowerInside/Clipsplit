@@ -15,5 +15,5 @@ void buffering(int fd, char **buffer, unsigned int bufsize) {
         *buffer = realloc(*buffer, bufsize);
     }
     *buffer = realloc(*buffer, bufsize - initial_bufsize + nbytes + 1);
-    (*buffer)[bufsize + nbytes] = '\0';
+    (*buffer)[bufsize - initial_bufsize + nbytes] = '\0';
 }
