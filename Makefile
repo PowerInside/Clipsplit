@@ -6,6 +6,11 @@ OBJ = clipsplit.o splitfunc.o
 	$(CC) -c -o $@ $< $(CFLAGS)
 make: $(OBJ)
 	$(CC) $^ $(CFLAGS)
+debug: *.c
+	$(CC) $^ -g $(CFLAGS)
+test:
+	cd tests; make
+
 .PHONY: clean
 clean: 
-	rm -f *.o *~
+	find . -name "*.o" -delete -o -name "*~" -delete
