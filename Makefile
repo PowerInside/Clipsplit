@@ -13,4 +13,4 @@ test:
 
 .PHONY: clean
 clean: 
-	find . -name "*.o" -delete -o -name "*~" -delete
+	find . -name "*.o" -delete -o -name "a.out" -delete -o -name "*~" -delete
