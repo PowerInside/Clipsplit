@@ -8,8 +8,8 @@ void buffering(int fd, char **buffer, unsigned int bufsize) {
     const unsigned int initial_bufsize = bufsize;
 
     for (;;) {
-        nbytes = read(fd, *buffer + (bufsize - initial_bufsize), bufsize);
-        if (nbytes != bufsize)
+        nbytes = read(fd, *buffer + (bufsize - initial_bufsize), initial_bufsize);
+        if (nbytes != initial_bufsize)
             break;
         bufsize += initial_bufsize;
         *buffer = realloc(*buffer, bufsize);
